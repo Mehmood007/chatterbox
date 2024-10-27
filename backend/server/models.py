@@ -10,15 +10,15 @@ from .validators import (
 
 
 def server_icon_upload_path(instance, filename):
-    return f"server/{instance.id}/server_icons/{filename}"
+    return f'server/{instance.id}/server_icons/{filename}'
 
 
 def server_banner_upload_path(instance, filename):
-    return f"server/{instance.id}/server_banner/{filename}"
+    return f'server/{instance.id}/server_banner/{filename}'
 
 
 def category_icon_upload_path(instance, filename):
-    return f"category/{instance.id}/category_icon/{filename}"
+    return f'category/{instance.id}/category_icon/{filename}'
 
 
 class Category(models.Model):
@@ -38,10 +38,10 @@ class Category(models.Model):
         self.name = self.name.lower()
         super(Category, self).save(*args, **kwargs)
 
-    @receiver(models.signals.pre_delete, sender="server.Category")
+    @receiver(models.signals.pre_delete, sender='server.Category')
     def category_delete_files(sender, instance, **kwargs):
         for field in instance._meta.fields:
-            if field.name == "icon":
+            if field.name == 'icon':
                 file = getattr(instance, field.name)
                 if file:
                     file.delete(save=False)
@@ -55,10 +55,10 @@ class Server(models.Model):
     owner = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
-        related_name="server_owner",
+        related_name='server_owner',
     )
     category = models.ForeignKey(
-        Category, on_delete=models.CASCADE, related_name="server_category"
+        Category, on_delete=models.CASCADE, related_name='server_category'
     )
     description = models.CharField(max_length=250, blank=True, null=True)
     member = models.ManyToManyField(settings.AUTH_USER_MODEL)
@@ -84,16 +84,16 @@ class Server(models.Model):
                 existing.banner.delete(save=False)
         super(Server, self).save(*args, **kwargs)
 
-    @receiver(models.signals.pre_delete, sender="server.Server")
+    @receiver(models.signals.pre_delete, sender='server.Server')
     def server_delete_files(sender, instance, **kwargs):
         for field in instance._meta.fields:
-            if field.name == "icon" or field.name == "banner":
+            if field.name == 'icon' or field.name == 'banner':
                 file = getattr(instance, field.name)
                 if file:
                     file.delete(save=False)
 
     def __str__(self):
-        return f"{self.name}-{self.id}"
+        return f'{self.name}-{self.id}'
 
 
 class Channel(models.Model):
@@ -101,11 +101,11 @@ class Channel(models.Model):
     owner = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
-        related_name="channel_owner",
+        related_name='channel_owner',
     )
     topic = models.CharField(max_length=100)
     server = models.ForeignKey(
-        Server, on_delete=models.CASCADE, related_name="channel_server"
+        Server, on_delete=models.CASCADE, related_name='channel_server'
     )
 
     def __str__(self):
