@@ -13,7 +13,7 @@ from .serializer import CategorySerializer, ServerSerializer
 
 
 class ServerMemebershipViewSet(viewsets.ViewSet):
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
 
     def create(self, request, server_id):
         server = get_object_or_404(Server, id=server_id)
@@ -78,7 +78,7 @@ class CategoryListViewSet(viewsets.ViewSet):
 
 class ServerListViewSet(viewsets.ViewSet):
     queryset = Server.objects.all()
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
 
     @server_list_docs
     def list(self, request):
