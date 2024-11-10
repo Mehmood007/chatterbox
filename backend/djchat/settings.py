@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     # Custom applications
     'account',
     'server',
+    'webchat',
 ]
 
 MIDDLEWARE = [
@@ -154,3 +155,7 @@ SPECTACULAR_SETTINGS = {
 }
 
 CORS_ALLOW_ALL_ORIGINS = True
+
+CHANNEL_LAYERS = {
+    'default': {'BACKEND': 'channels.layers.InMemoryChannelLayer'}
+}

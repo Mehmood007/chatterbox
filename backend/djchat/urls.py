@@ -22,10 +22,12 @@ from django.urls import path
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 from rest_framework.routers import DefaultRouter
 from server.views import CategoryListViewSet, ServerListViewSet
+from webchat.views import MessageViewSet
 
 router = DefaultRouter()
 router.register('api/server/select', ServerListViewSet)
 router.register('api/server/category', CategoryListViewSet)
+router.register('api/messages', MessageViewSet, basename="message")
 
 urlpatterns = [
     path('admin/', admin.site.urls),
