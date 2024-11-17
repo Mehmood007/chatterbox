@@ -34,5 +34,8 @@
 - **Run Migrations in app directory**   
   `python manage.py migrate`
 
+- **setup staticfiles**   
+  `python manage.py collectstatic`
+
 - **Run Server**  
   `uvicorn djchat.asgi:application --port 8000 --workers 4 --log-level debug --reload`
