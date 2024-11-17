@@ -18,9 +18,11 @@ django_server = get_asgi_application()
 
 from .routers import websocket_urlpatterns
 
+from webchat.middleware import JWTAuthMiddleWare  # isort:skip
+
 application = ProtocolTypeRouter(
     {
         'http': django_server,
-        'websocket': URLRouter(websocket_urlpatterns),
+        'websocket': JWTAuthMiddleWare(URLRouter(websocket_urlpatterns)),
     }
 )

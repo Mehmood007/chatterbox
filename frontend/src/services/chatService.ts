@@ -1,6 +1,6 @@
 import useWebSocket from "react-use-websocket";
 import { useState } from "react";
-// import { useAuthService } from "../services/AuthServices";
+import { useAuthService } from "../services/AuthServices";
 import useCrud from "../hooks/useCrud";
 import { WS_ROOT } from "../config";
 import { Server } from "../@types/server"
@@ -15,7 +15,7 @@ const useChatWebSocket = (channelId: string, serverId: string) =>{
 
     const [newMessage, setNewMessage] = useState<Message[]>([]);
     const [message, setMessage] = useState("");
-    // const { logout, refreshAccessToken } = useAuthService();
+    const { logout, refreshAccessToken } = useAuthService();
     const { fetchData } = useCrud<Server>(
       [],
       `/messages/?channel_id=${channelId}`
@@ -42,11 +42,11 @@ const useChatWebSocket = (channelId: string, serverId: string) =>{
       onClose: (event: CloseEvent) => {
         if (event.code == 4001) {
           console.log("Authentication Error");
-          // refreshAccessToken().catch((error) => {
-          //   if (error.response && error.response.status === 401) {
-          //     logout();
-          //   }
-          // });
+          refreshAccessToken().catch((error) => {
+            if (error.response && error.response.status === 401) {
+              logout();
+            }
+          });
         }
         console.log("Close");
         setReconnectionAttempt((prevAttempt) => prevAttempt + 1);
@@ -81,4 +81,5 @@ const useChatWebSocket = (channelId: string, serverId: string) =>{
 
 }
 export default useChatWebSocket
+
 
