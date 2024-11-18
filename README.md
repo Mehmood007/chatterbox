@@ -24,6 +24,10 @@
   **Run below command in terminal**  
   `git clone https://github.com/Mehmood007/chatterbox.git`  
 
+### Backend Server
+-  **Navigate to backend directory**  
+  `cd backend`  
+
 -  **ADD SECRET_KEY TO ENV**  
   Rename `.env-example` to `env` and Assign value to `SECRET_KEY`  
 
@@ -39,3 +43,17 @@
 
 - **Run Server**  
   `uvicorn djchat.asgi:application --port 8000 --workers 4 --log-level debug --reload`
+
+### Frontend App
+-  **Navigate to frontend directory**  
+  `cd frontend`  
+
+-  **Install Dependencies**  
+  `npm install`  
+
+-  **Run App**  
+  `npm run dev`  
+
+
+### Use Application
+**Create super user in django backend and add few servers through admin panel to use it efficiently**
