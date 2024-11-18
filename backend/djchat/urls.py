@@ -1,4 +1,4 @@
-"""
+'''
 URL configuration for djchat project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -13,7 +13,7 @@ Class-based views
 Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
+'''
 
 from account.views import (
     AccountViewSet,
@@ -28,14 +28,23 @@ from django.contrib import admin
 from django.urls import path
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 from rest_framework.routers import DefaultRouter
-from server.views import CategoryListViewSet, ServerListViewSet
+from server.views import (
+    CategoryListViewSet,
+    ServerListViewSet,
+    ServerMembershipViewSet,
+)
 from webchat.views import MessageViewSet
 
 router = DefaultRouter()
 router.register('api/server/select', ServerListViewSet)
 router.register('api/server/category', CategoryListViewSet)
-router.register('api/messages', MessageViewSet, basename="message")
-router.register("api/account", AccountViewSet, basename="account")
+router.register('api/messages', MessageViewSet, basename='message')
+router.register('api/account', AccountViewSet, basename='account')
+router.register(
+    r'api/membership/(?P<server_id>\d+)/membership',
+    ServerMembershipViewSet,
+    basename='server-membership',
+)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -49,8 +58,8 @@ urlpatterns = [
         JWTCookieTokenRefreshView.as_view(),
         name='token_refresh',
     ),
-    path("api/logout/", LogOutAPIView.as_view(), name="logout"),
-    path("api/register/", RegisterView.as_view(), name="register"),
+    path('api/logout/', LogOutAPIView.as_view(), name='logout'),
+    path('api/register/', RegisterView.as_view(), name='register'),
     path('api/docs/schema', SpectacularAPIView.as_view(), name='schema'),
     path('api/docs/schema/ui', SpectacularSwaggerView.as_view()),
 ] + router.urls

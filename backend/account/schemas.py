@@ -7,10 +7,10 @@ user_list_docs = extend_schema(
     responses=AccountSerializer(),
     parameters=[
         OpenApiParameter(
-            name="user_id",
+            name='user_id',
             type=OpenApiTypes.INT,
             location=OpenApiParameter.QUERY,
-            description="User ID",
+            description='User ID',
         ),
     ],
 )

@@ -12,8 +12,8 @@ from .schema import server_list_docs
 from .serializer import CategorySerializer, ServerSerializer
 
 
-class ServerMemebershipViewSet(viewsets.ViewSet):
-    # permission_classes = [IsAuthenticated]
+class ServerMembershipViewSet(viewsets.ViewSet):
+    permission_classes = [IsAuthenticated]
 
     def create(self, request, server_id):
         server = get_object_or_404(Server, id=server_id)
